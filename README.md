@@ -18,6 +18,7 @@ julia> ]
 julia > using MAT
 [ Info: Precompiling MAT [23992714-dd62-5051-b70f-ba57cb901cac]
 ```
+Other package dependencies are: Knet, Printf, ArgParse, Compat,	GZip, Images, JLD2, SparseArrays,	Statistics, Random.
 
 loaddata() and all default neural network architectures can be modified in the helpers.jl to deal with new datasets when using this package as a script.
 

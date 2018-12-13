@@ -26,7 +26,7 @@ mutable struct FrontEnd
 		return FrontEnd(w, o[:atype], forward, Fopt)
 	end
 function FrontEnd(o::Dict)
-		w = defaultFE_w("resources/resnet.mat")
+		w = defaultFE_w("../resources/resnet.mat")
 		w = map(x->convert(o[:atype], x), w)
 		return FrontEnd(w, o, defaultFE)
 	end
@@ -325,7 +325,7 @@ export print_output
 
 function train(xtrn::Union{KnetArray, Array}, ytrn::Union{KnetArray, Array},
 			xtst::Union{KnetArray, Array}, ytst::Union{KnetArray, Array},
-			model::InfoModel; mdlfile="trained/model.jld2", logfile="logs/log.txt", printfolder="outputs")
+			model::InfoModel; mdlfile="../trained/model.jld2", logfile="../logs/log.txt", printfolder="outputs")
 	epochs, bs = model.o[:epochs], model.o[:batchsize]
 	traindata = Array{Float64}(undef, epochs, 2)
 
@@ -428,7 +428,7 @@ function get_c(xtst::Union{KnetArray, Array}, model::InfoModel)
 	end
 	return c
 end
-get_c(xtst::Union{KnetArray, Array}) = get_c(xtst, "trained/model.jld2")
+get_c(xtst::Union{KnetArray, Array}) = get_c(xtst, "../trained/model.jld2")
 get_c(xtst::Union{KnetArray, Array}, mdlfile::String) = (model = load_model(mdlfile); get_c(xtst, model))
 
 export get_c

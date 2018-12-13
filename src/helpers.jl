@@ -94,7 +94,7 @@ function loaddata(o::Dict; keep_p=1.0)
 						"ytst" => ytst))
 		end
 		#Set percentage of y-data collected
-		idx_hide = randsubseq(1:trnSize, keep_p)
+		idx_hide = randsubseq(1:size(xtrn,4), keep_p)
 		ytrn[:,idx_hide] .= nothing
 	end
     return (xtrn, xtst, ytrn, ytst)

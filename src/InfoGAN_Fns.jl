@@ -134,18 +134,13 @@ function load_model(mdlfile)
 		o[:atype] = eval(Meta.parse(o[:atype]))
 	end
 
-	function frontend_(wF, x, f::FrontEnd; noiseSize=0.005, mode=true)
-		noise =  convert(f.atype, randn(size(x)) * noiseSize)
-		x = x + noise #adding some artificial noise
-		# Res-Net to get 1000-Feature Vector
-		return defaultFE(wF, x; mode=mode)
-	end
+	FE_fun(w, x; noiseSize=0.005, mode=true) = defaultFE(w, x; noiseSize=noiseSize, mode=mode, atype=o[:atype])
 
 	function auxiliary_(wQ, fc, o::Dict; mode=true)
 		return defaultQ(wQ, fc, length(o[:c_SS]), length(o[:c_disc]), o[:c_cont]; mode=mode)
 	end
 
-	F = FrontEnd(map(x-> convert(KnetArray{Float32}, x), m["F"][1]), o, frontend_)
+	F = FrontEnd(map(x-> convert(KnetArray{Float32}, x), m["F"][1]), o, FE_fun)
 	D = Discriminator(map(x-> convert(KnetArray{Float32}, x), m["D"][1]), o, defaultD)
 	G = Generator(map(x-> convert(KnetArray{Float32}, x), m["G"][1]), o, defaultG)
 	Q = Auxiliary(map(x-> convert(KnetArray{Float32}, x), m["Q"][1]), o, auxiliary_)

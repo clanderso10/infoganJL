@@ -92,12 +92,14 @@ function main(args)
 	MDLFILE = model.o[:mdl]
 
 	LOGFILE = @sprintf "../logs/log-%s.txt" format(now(), "mmddyy-HH")
+	~ispath("../logs") && mkpath("../logs")
 	fh = open(LOGFILE, "w")
 	for k=keys(o); write(fh, string(k, "\t\t\t", o[k], "\n")); end
 	close(fh)
 
 	@time results = train(xtrn, ytrn, xtst, ytst, model; logfile=LOGFILE, mdlfile=MDLFILE)
 	c = get_c(xtst, MDLFILE)
+	~ispath("../trained") && mkpath("../trained")
 	save("../trained/test_categories.jld2", Dict("preds"=> c, "labels"=> ytst))
 
 	RESFILE = @sprintf "../trained/results-%s.jld2" format(now(), "mmddyy-HH")

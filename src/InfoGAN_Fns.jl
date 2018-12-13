@@ -310,13 +310,14 @@ samplenoise(M::InfoModel) = samplenoise(M.o, M.o[:batchsize])
 export samplenoise
 
 
-function print_output(epoch, m::InfoModel, s::Int, scale::Float64, gs::Int;printfolder="outputs")
+function print_output(epoch, m::InfoModel, s::Int, scale::Float64, gs::Int;printfolder="../outputs")
 	Z, _ = samplenoise(m, m.o[:printNum])
 	G_sample = convert(Array{Float32}, m.G.forward(m.G.w, Z; mode=false))
 	G_sample .-= minimum(G_sample; dims =(1,2))
 	G_sample ./= maximum(G_sample; dims =(1,2))
 	out = map(clamp01nan, Gray.(makegrid(G_sample; gridsize=(gs,gs), scale=scale, shape=(s,s))))
 
+	~ispath(printfolder) && mkpath(printfolder)
 	savefile = string(printfolder, "/epoch",lpad(epoch, 3, "0"),".png")
 	save(savefile, out)
 end
@@ -325,7 +326,7 @@ export print_output
 
 function train(xtrn::Union{KnetArray, Array}, ytrn::Union{KnetArray, Array},
 			xtst::Union{KnetArray, Array}, ytst::Union{KnetArray, Array},
-			model::InfoModel; mdlfile="../trained/model.jld2", logfile="../logs/log.txt", printfolder="outputs")
+			model::InfoModel; mdlfile="../trained/model.jld2", logfile="../logs/log.txt", printfolder="../outputs")
 	epochs, bs = model.o[:epochs], model.o[:batchsize]
 	traindata = Array{Float64}(undef, epochs, 2)
 

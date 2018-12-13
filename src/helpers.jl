@@ -30,10 +30,10 @@ function loaddata(o::Dict; keep_p=1.0)
 	if dataset == "MNIST"
 		xDim, yDim = 28, 28
 	    # @info "Loading MNIST..."
-	    xtrn = gzload("train-images-idx3-ubyte.gz")[17:end]
-	    xtst = gzload("t10k-images-idx3-ubyte.gz")[17:end]
-	    ytrn = gzload("train-labels-idx1-ubyte.gz")[9:end]
-	    ytst = gzload("t10k-labels-idx1-ubyte.gz")[9:end]
+	    xtrn = gzload("../resources/train-images-idx3-ubyte.gz")[17:end]
+	    xtst = gzload("../resources/t10k-images-idx3-ubyte.gz")[17:end]
+	    ytrn = gzload("../resources/train-labels-idx1-ubyte.gz")[9:end]
+	    ytst = gzload("../resources/t10k-labels-idx1-ubyte.gz")[9:end]
 
 		# Preprocessing and reshaping
 	    xtrn, xtst = map(x-> (x./(255/2)) .-1, (xtrn, xtst))

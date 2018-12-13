@@ -59,6 +59,7 @@ function loaddata(o::Dict; drop_p=0.0)
 			ytrn = data["ytrn"]
 			ytst = data["ytst"]
 		else
+			N=7724
 			xxDim, xyDim = 64, 64
 			yyDim = length(o[:c_SS]);
 

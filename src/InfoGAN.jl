@@ -42,14 +42,14 @@ function define_params(args)
 
 	add_arg_group(s, "Data Set Hyperparameters")
 	@add_arg_table s begin
-		("--datadir"; arg_type=String; default="./resources/training_data"; help="Directory location holding holography dataset. Use 'MNIST' to load MNIST dataset instead")
+		("--datadir"; arg_type=String; default="../resources/training_data"; help="Directory location holding holography dataset. Use 'MNIST' to load MNIST dataset instead")
 		("--N"; arg_type=Int; default=nothing ; help="Number of dataset samples to use for training")
 		("--atype"; eval_arg=true; default=(gpu()>=0 ? "KnetArray{Float32}" : "Array{Float32}"); help="Array type for training data: Array for cpu, KnetArray for gpu")
 	end
 
 	add_arg_group(s, "Other parameters")
 	@add_arg_table s begin
-		("--printNum"; arg_type=Int; default=100; help="Number of images that generator function produces (default folder ./outputs/). Set to 0 for no printing")
+		("--printNum"; arg_type=Int; default=100; help="Number of images that generator function produces (default folder ../outputs/). Set to 0 for no printing")
 		("-v"; action = :store_true; help = "verbose flag, use to print updates every 2 epochs")
 	end
 

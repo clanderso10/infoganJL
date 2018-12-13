@@ -91,8 +91,9 @@ function main(args)
 	end
 	MDLFILE = model.o[:mdl]
 
-	LOGFILE = @sprintf "../logs/log-%s.txt" format(now(), "mmddyy-HH")
 	~ispath("../logs") && mkpath("../logs")
+	LOGFILE = @sprintf "../logs/log-%s.txt" format(now(), "mmddyy-HH")
+
 	fh = open(LOGFILE, "w")
 	for k=keys(o); write(fh, string(k, "\t\t\t", o[k], "\n")); end
 	close(fh)

@@ -255,7 +255,7 @@ Default Auxiliary Network to predict latent code distributions.
 - `numCont::Int`: Number of continuous codes.
 - `mode::bool`:  batch normalization train/test mode.
 """
-function defaultQ(wQ, fc, numDiscSS, numDisc, numCont; mode=mode)
+function defaultQ(wQ, fc, numDiscSS, numDisc, numCont; mode=true)
 	fc2 = bn_relu((wQ[1] * fc) .+ wQ[2], mode)
 
 	numDiscSS>0 ? (logitsSS = getlogits(wQ[3:end], numDiscSS, fc2)) : logitsSS=nothing

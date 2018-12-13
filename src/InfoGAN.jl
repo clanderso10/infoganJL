@@ -92,6 +92,7 @@ function main(args)
 	MDLFILE = model.o[:mdl]
 
 	~ispath("../logs") && mkpath("../logs")
+	~ispath("../trained") && mkpath("../trained")
 	LOGFILE = @sprintf "../logs/log-%s.txt" format(now(), "mmddyy-HH")
 
 	fh = open(LOGFILE, "w")

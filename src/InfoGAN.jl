@@ -26,7 +26,7 @@ function define_params(args)
 		("--clip"; arg_type=Float64; default=.5 ; help= "WGAN weight-clipping coefficient")
 		("--dreps"; arg_type=Int; default=5; help="Number of Discriminator-side training repeats per minibatch")
 		("--greps"; arg_type=Int; default=1; help="Number of Generator-side training repeats per minibatch")
-		("--mdl"; default="trained/model.jld2"; help="File where trained model is saved/should be saved")
+		("--mdl"; default="../trained/model.jld2"; help="File where trained model is saved/should be saved")
 		("--load"; action = :store_true; help="Load previous model before training")
 	end
 
@@ -91,16 +91,16 @@ function main(args)
 	end
 	MDLFILE = model.o[:mdl]
 
-	LOGFILE = @sprintf "logs/log-%s.txt" format(now(), "mmddyy-HH")
+	LOGFILE = @sprintf "../logs/log-%s.txt" format(now(), "mmddyy-HH")
 	fh = open(LOGFILE, "w")
 	for k=keys(o); write(fh, string(k, "\t\t\t", o[k], "\n")); end
 	close(fh)
 
 	@time results = train(xtrn, ytrn, xtst, ytst, model; logfile=LOGFILE, mdlfile=MDLFILE)
 	c = get_c(xtst, MDLFILE)
-	save("trained/test_categories.jld2", Dict("preds"=> c, "labels"=> ytst))
+	save("../trained/test_categories.jld2", Dict("preds"=> c, "labels"=> ytst))
 
-	RESFILE = @sprintf "trained/results-%s.jld2" format(now(), "mmddyy-HH")
+	RESFILE = @sprintf "../trained/results-%s.jld2" format(now(), "mmddyy-HH")
 	save_results(RESFILE,results)
 end
 export main

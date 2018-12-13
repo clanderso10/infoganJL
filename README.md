@@ -1,4 +1,11 @@
 # infoganJL
+Christian Landeros
+
+Year 3, PhD Student
+
+Harvard-MIT Program in Health Sciences and Technology
+
+
 InfoGAN implementation in Julia with flexibility generator, descriminator, and auxiliary neural network architectures. InfoGAN model structure is implemented as described in [https://arxiv.org/abs/1606.03657] with semi-supervised training capacity for auxiliary networks. Additionally, the Discriminator output and loss are designed according to Wassterstein GAN innovations [https://arxiv.org/abs/1701.07875]"
 
 ![overview of InfoGAN model](fig.png)

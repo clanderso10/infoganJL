@@ -87,16 +87,15 @@ function loaddata(o::Dict; keep_p=1.0)
 			xtst = x[:,:,:, trnSize+1:end]
 			ytrn = y[:, 1:trnSize]; ytst = y[:, trnSize+1:end];
 
-			#Set percentage of y-data collected
-			idx_hide = randsubseq(1:trnSize, keep_p)
-			ytrn[:,idx_hide] .= nothing
-
 			save(string(dataset, "/data.jld2"),
 					Dict("xtrn" => xtrn,
 						"xtst" => xtst,
 						"ytrn" => ytrn,
 						"ytst" => ytst))
 		end
+		#Set percentage of y-data collected
+		idx_hide = randsubseq(1:trnSize, keep_p)
+		ytrn[:,idx_hide] .= nothing
 	end
     return (xtrn, xtst, ytrn, ytst)
 end

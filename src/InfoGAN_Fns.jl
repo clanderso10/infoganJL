@@ -183,7 +183,8 @@ function D_loss_(wD, wF, xs, m::InfoModel; ep = 1e-15, v=false, mode=true)
 	# f_loss = -log.(1 .- m.D.forward(wD, f_fc) .+ ep) 	#D(G(z)))=0 => loss = 0
 
 	#Wassertein loss
-	d_loss = mean(-m.D.forward(wD, r_fc)) + mean(m.D.forward(wD, f_fc))
+	r_loss = mean(-m.D.forward(wD, r_fc))
+	f_loss = mean(m.D.forward(wD, f_fc))
 
 	# Gradient Penalty Method for Weight Regularization
 	# Cannot be implemented until we figure out how to do
@@ -196,10 +197,11 @@ function D_loss_(wD, wF, xs, m::InfoModel; ep = 1e-15, v=false, mode=true)
     # ∇D_norms = sqrt.(eps() .+ sum(∇D_x_hat .* ∇D_x_hat;dims=(1,2,3)))
 	# println("norm mean: ", mean(∇D_norms))
 	# gp_loss = mean(m.o[:gpCoeff] *(∇D_norms .-1).^2)
+	# loss = d_loss + gp_loss
+	# v && @printf "\tBatch Discriminator Loss: %.3e (D: %.3e, GP: %.3e)\n" loss d_loss gp_loss;
 
-	gp_loss = 0
-	loss = d_loss + gp_loss
-	v && @printf "\tBatch Discriminator Loss: %.3e (D: %.3e, GP: %.3e)\n" loss d_loss gp_loss;
+	loss = r_loss + f_loss
+	v && @printf "\tBatch Discriminator Loss: %.3e (Real: %.3e, Fake: %.3e)\n" loss r_loss f_loss;
 	return loss
 end
 export trainD!, D_loss

@@ -15,14 +15,14 @@ end
 export gzload
 
 """
-    loaddata(o; keep_p=1.0)
+    loaddata(o; drop_p=1.0)
 
 Default dataloader for MNIST dataset or digital holography dataset.
 
 
 <b> Arguments </b>
 - `o::Dict`: Parameter dictionary.
-- `keep_p::Float64`: Percentage of y-labels to keep (to tune extent of semisupervision).
+- `drop_p::Float64`: Percentage of y-labels to drop (to tune extent of semisupervision).
 - `dataset::String`:  "MNIST" or directory of holography datset .
 """
 function loaddata(o::Dict; drop_p=0.0)

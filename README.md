@@ -8,7 +8,7 @@ Run trianing with default settings by running `julia infoGAN.jl`. This will load
 
 For example, the sizes of all semisupervised (categorical) codes can be set as follows:
 
-`julia InfoGAN.jl --c_SS 10 5 3`
+`cd src; julia InfoGAN.jl --c_SS 10 5 3`
 
 By default, InfoGAN.jl reads a digital holography dataset located in ./resources/training_data, and creates ground truth labels for semisupervised codes based on file names. The defual neural network architectures defined by this package are designed to evaluate this dataset, and definitions are located in the helpers.jl file. The default Front-End neural network depends on a version of MAT that builds with Julia v1.0.1:
 

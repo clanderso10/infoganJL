@@ -3,7 +3,7 @@ push!(LOAD_PATH, pwd())
 using Pkg
 for p = ["Knet", "Printf", "ArgParse", "Compat",
 	"GZip", "Images", "JLD2", "SparseArrays",
-	"Distributions", "Random", "MAT", "ImageMagick"]
+	"Statistics", "Random", "MAT", "ImageMagick"]
 	haskey(Pkg.installed(), p) || Pkg.add(p)
 end
 

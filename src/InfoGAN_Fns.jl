@@ -17,7 +17,7 @@ mutable struct FrontEnd
 	forward
 	opt::AbstractArray
 	function FrontEnd(w, atype, forward, opt)
-		s = @sprintf "Number of Parameters: %.3f M\n" sum(map(x->prod(size(x)), w)) / 1e6
+		s = @sprintf "Number of Parameters: %.3f M" sum(map(x->prod(size(x)), w)) / 1e6
 		@info "Initialized FrontEnd weights:" size(w) typeof(w) s
 		return new(w, atype, forward, opt)
 	end
@@ -28,7 +28,8 @@ mutable struct FrontEnd
 function FrontEnd(o::Dict)
 		w = defaultFE_w("../resources/resnet.mat")
 		w = map(x->convert(o[:atype], x), w)
-		return FrontEnd(w, o, defaultFE)
+		FE_fun(w, x; noiseSize=0.005, mode=true) = defaultFE(w, x; noiseSize=noiseSize, mode=mode, atype=o[:atype])
+		return FrontEnd(w, o, FE_fun)
 	end
 end
 
@@ -38,7 +39,7 @@ mutable struct Discriminator
 	forward
 	opt::AbstractArray
 	function Discriminator(w, atype, forward, opt)
-		s = @sprintf "Number of Parameters: %.3f M\n" sum(map(x->prod(size(x)), w)) / 1e6
+		s = @sprintf "Number of Parameters: %.3f M" sum(map(x->prod(size(x)), w)) / 1e6
 		@info "Initialized Discriminator weights:" size(w) typeof(w) s
 		return new(w, atype, forward, opt)
 	end
@@ -59,7 +60,7 @@ mutable struct Generator
 	forward
 	opt::AbstractArray
 	function Generator(w, atype, forward, opt)
-		s = @sprintf "Number of Parameters: %.3f M\n" sum(map(x->prod(size(x)), w)) / 1e6
+		s = @sprintf "Number of Parameters: %.3f M" sum(map(x->prod(size(x)), w)) / 1e6
 		@info "Initialized Generator weights:" size(w) typeof(w) s
 		return new(w, atype, forward, opt)
 	end
@@ -82,7 +83,7 @@ mutable struct Auxiliary
 	forward
 	opt::AbstractArray
 	function Auxiliary(w, atype, forward, opt)
-		s = @sprintf "Number of Parameters: %.3f M\n" sum(map(x->prod(size(x)), w)) / 1e6
+		s = @sprintf "Number of Parameters: %.3f M" sum(map(x->prod(size(x)), w)) / 1e6
 		@info "Initialized Auxiliary weights:" size(w) typeof(w) s
 		return new(w, atype, forward, opt)
 	end

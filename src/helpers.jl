@@ -146,8 +146,8 @@ Uses ResNet50 architecture to generate 1000-length vector.
 - `mode::bool`:  batch normalization train/test mode.
 """
 
-function defaultFE(w, x; noiseSize=0.005, mode=true)
-	noise =  convert(typeof(x), randn(size(x)) * noiseSize)
+function defaultFE(w, x; noiseSize=0.005, mode=true, atype=Array{Float32})
+	noise =  convert(atype, randn(size(x)) * noiseSize)
 	x = x + noise #adding some artificial noise
 
 	conv1  = conv4(w[1],x; padding=3, stride=2) .+ w[2]

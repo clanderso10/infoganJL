@@ -48,7 +48,7 @@ function loaddata(o::Dict; drop_p=0.0)
 	    trnN = size(xtrn,4)
 
 	    #Set percentage of y-data collected
-	    idx_hide = randsubseq(1:trnN, keep_p)
+	    idx_hide = randsubseq(1:trnN, drop_p)
 	    ytrn[:,idx_hide] .= nothing
 	else
 		if isfile(string(dataset, "/data.jld2"))
@@ -94,7 +94,7 @@ function loaddata(o::Dict; drop_p=0.0)
 						"ytst" => ytst))
 		end
 		#Set percentage of y-data collected
-		idx_hide = randsubseq(1:size(xtrn,4), keep_p)
+		idx_hide = randsubseq(1:size(xtrn,4), drop_p)
 		ytrn[:,idx_hide] .= nothing
 	end
     return (xtrn, xtst, ytrn, ytst)

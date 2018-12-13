@@ -74,7 +74,7 @@ function main(args)
 	@info "GAN Started..." o
 
 	# Load dataset
-	(xtrn, xtst, ytrn, ytst) = loaddata(o; keep_p = 0.9)
+	(xtrn, xtst, ytrn, ytst) = loaddata(o; drop_p = 0.9)
 	if o[:N] != nothing
 		trnN = size(xtrn,4)
 		selection = randperm(trnN)[1:min(trnN, o[:N])]

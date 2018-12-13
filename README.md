@@ -23,4 +23,4 @@ Other package dependencies are: Knet, Printf, ArgParse, Compat,	GZip, Images, JL
 loaddata() and all default neural network architectures can be modified in the helpers.jl to deal with new datasets when using this package as a script.
 
 #### Running in a notebook
-If running InfoGAN module in a notebook environment, neural network archtectures can be defined prior to creating the initial InfoModel structure. Once an InfoModel strucuture is defined from hyperparameters in `o` and from neural network weights/functions, we can run the `train(xtrn, ytrn, xtst, ytst, model; mdlfile=MDLFILE, logfile=LOGFILE, printfolder=PRINTFOLDER)` function to start training. [A demo](demo.ipynb) is shown in demo.ipynb.
+If running InfoGAN module in a notebook environment, neural network archtectures can be defined prior to creating the initial InfoModel structure. Once an InfoModel strucuture is defined from hyperparameters in `o` and from neural network weights/functions, we can run the `train(xtrn, ytrn, xtst, ytst, model; mdlfile=MDLFILE, logfile=LOGFILE, printfolder=PRINTFOLDER)` function to start training. [A demo](src/demo.ipynb) is shown in demo.ipynb.
